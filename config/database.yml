@@ -81,9 +81,11 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: ec2_rails_production
-    username: ec2_rails
-    password: <%= ENV["EC2_RAILS_DATABASE_PASSWORD"] %>
+    database: <%= ENV['DB_DATABASE'] %>
+    username: <%= ENV['DB_USER'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
+    host: <%= ENV['DB_HOST'] %>
+    port: <%= ENV['DB_PORT'] %>
   cache:
     <<: *primary_production
     database: ec2_rails_production_cache
