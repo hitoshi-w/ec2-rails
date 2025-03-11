@@ -37,9 +37,9 @@ jobs:
             StrictHostKeyChecking no
             HostName ${{ secrets.BASTION_HOSTNAME }}
           Host ec2-rails-web01
-            ProxyJump deploy@rails-deploy-bastion
+            ProxyJump deploy@ec2-rails-bastion
           Host ec2-rails-web02
-            ProxyJump deploy@rails-deploy-bastion
+            ProxyJump deploy@ec2-rails-bastion
           EOF
 
       - name: Deploy
