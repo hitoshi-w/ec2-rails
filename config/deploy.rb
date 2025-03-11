@@ -1,6 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.19.2"
 
+set :user, "deploy"
+set :use_sudo, false
 set :application, "ec2-rails"
 set :repo_url, "git@github.com:hitoshi-w/ec2-rails.git"
 
