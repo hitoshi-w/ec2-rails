@@ -10,16 +10,26 @@ jobs:
     uses: ./.github/workflows/ci.yml
   deploy:
     name: Deploy app to AWS
-    needs: [test]
+    needs: [test] 
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
       - name: Install SSH key
         run: |
           mkdir -p -m 700 ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/ec2-rails-deploy
           chmod 600 ~/.ssh/ec2-rails-deploy
+          
       - name: Set SSH Config
         run: |
           cat << EOF > ~/.ssh/config
