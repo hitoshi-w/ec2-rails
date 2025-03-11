@@ -7,7 +7,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 server ENV["CAP_WEB01"], user: "deploy", roles: %w[app db web]
-server ENV["CAP_WEB02"], user: "deploy", roles: %w[app db web]
+# server ENV["CAP_WEB02"], user: "deploy", roles: %w[app db web]
 
 
 
