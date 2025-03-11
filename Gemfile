@@ -53,6 +53,7 @@ group :development do
   gem "web-console"
 
   gem "capistrano", require: false
+  gem "capistrano-rails", require: false
 end
 
 group :test do
