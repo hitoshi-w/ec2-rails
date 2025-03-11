@@ -46,7 +46,7 @@ jobs:
         run: |
           eval $(ssh-agent)
           ssh-add ~/.ssh/ec2-rails-deploy
-          bundle exec cap production deploy --trace
+          bundle exec cap production deploy
         env:
           CAP_WEB01: ec2-rails-web01
           CAP_WEB02: ec2-rails-web02
