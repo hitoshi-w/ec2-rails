@@ -6,8 +6,8 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-server Rails.application.credentials.dig(:cap, :web01), user: "deploy", roles: %w[app db web]
-server Rails.application.credentials.dig(:cap, :web02), user: "deploy", roles: %w[app db web]
+server ENV["CAP_WEB01"], user: "deploy", roles: %w[app db web]
+server ENV["CAP_WEB02"], user: "deploy", roles: %w[app db web]
 
 
 
