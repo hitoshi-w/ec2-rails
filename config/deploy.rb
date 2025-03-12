@@ -52,3 +52,4 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :puma_threads, [ 0, 5 ]
 set :puma_workers, 2
 set :puma_service_unit_name, "puma.service"
+set :puma_systemctl_user, :system
