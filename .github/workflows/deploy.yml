@@ -46,6 +46,7 @@ jobs:
         run: |
           eval $(ssh-agent)
           ssh-add ~/.ssh/ec2-rails-deploy
+          bundle exec cap production puma:config
           bundle exec cap production deploy
         env:
           CAP_WEB01: ec2-rails-web01
