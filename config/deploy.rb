@@ -70,33 +70,17 @@ namespace :puma do
     end
 
     before :start, :make_dirs
-
-    desc "Start Puma"
-    task :start do
-        on roles(:app) do
-            within current_path do
-                execute :bundle, "exec puma -C #{shared_path}/puma.rb"
-            end
-        end
-    end
-
-    desc "Stop Puma"
-    task :stop do
-        on roles(:app) do
-            execute "kill -s TERM $(cat #{fetch(:puma_pid)})"
-        end
-    end
-
-    desc "Restart Puma"
-    task :restart do
-        on roles(:app) do
-            invoke "puma:stop"
-            invoke "puma:start"
-        end
-    end
 end
 
 namespace :deploy do
+    desc "Initial Deploy"
+    task :initial do
+      on roles(:app) do
+        before "deploy:restart", "puma:start"
+        invoke "deploy"
+      end
+    end
+
     desc "Restart application"
     task :restart do
         on roles(:app), in: :sequence, wait: 5 do
