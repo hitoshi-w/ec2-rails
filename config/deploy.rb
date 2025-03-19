@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.19.2"
+lock "~> 3.16.0"
 
 set :user, "deploy"
 set :use_sudo, false
@@ -60,17 +60,17 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 set :puma_threads, [ 0, 5 ]
 set :puma_workers, 2
 
-# namespace :puma do
-#     desc "Create Directories for Puma Pids and Socket"
-#     task :make_dirs do
-#         on roles(:app) do
-#             execute "mkdir #{shared_path}/tmp/sockets -p"
-#             execute "mkdir #{shared_path}/tmp/pids -p"
-#         end
-#     end
+namespace :puma do
+    desc "Create Directories for Puma Pids and Socket"
+    task :make_dirs do
+        on roles(:app) do
+            execute "mkdir #{shared_path}/tmp/sockets -p"
+            execute "mkdir #{shared_path}/tmp/pids -p"
+        end
+    end
 
-#     before :start, :make_dirs
-# end
+    before :start, :make_dirs
+end
 
 namespace :deploy do
     desc "Initial Deploy"
