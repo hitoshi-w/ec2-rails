@@ -26,6 +26,9 @@ jobs:
       
       - name: Install dependencies
         run: bundle install
+      
+      - name: Install Puma
+        run: bundle exec cap production puma:install
 
       - name: Install SSH key
         run: |
@@ -49,7 +52,6 @@ jobs:
         run: |
           eval $(ssh-agent)
           ssh-add ~/.ssh/ec2-rails-deploy
-          bundle exec cap production puma:install
           bundle exec cap production deploy
         env:
           CAP_WEB01: ec2-rails-web01
