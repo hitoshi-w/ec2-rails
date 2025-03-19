@@ -62,10 +62,15 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
-  gem "capistrano", require: false
-  gem "capistrano-rails", require: false
-  gem "capistrano-rbenv", require: false
+  gem "capistrano", "~> 3.16", require: false
+  gem "capistrano-rails", "~> 1.6", require: false
+  gem "capistrano-rbenv", "~> 2.2", require: false
   gem "capistrano3-puma", require: false
+
+  # gem "capistrano", require: false
+  # gem "capistrano-rails", require: false
+  # gem "capistrano-rbenv", require: false
+  # gem "capistrano3-puma", require: false
 end
 
 group :test do

@@ -361,9 +361,9 @@ DEPENDENCIES
   bcrypt_pbkdf
   bootsnap
   brakeman
-  capistrano
-  capistrano-rails
-  capistrano-rbenv
+  capistrano (~> 3.16)
+  capistrano-rails (~> 1.6)
+  capistrano-rbenv (~> 2.2)
   capistrano3-puma
   capybara
   debug
