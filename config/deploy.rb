@@ -5,6 +5,14 @@ set :user, "deploy"
 set :use_sudo, false
 set :application, "ec2-rails"
 set :repo_url, "git@github.com:hitoshi-w/ec2-rails.git"
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
+set :puma_state, "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
+set :puma_access_log, "#{release_path}/log/puma.error.log"
+set :puma_error_log, "#{release_path}/log/puma.access.log"
+set :puma_preload_app, true
+set :puma_worker_timeout, nil
+set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -51,5 +59,26 @@ set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rben
 
 set :puma_threads, [ 0, 5 ]
 set :puma_workers, 2
-set :puma_service_unit_name, "puma.service"
-set :puma_systemctl_user, :deploy
+
+namespace :puma do
+    desc "Create Directories for Puma Pids and Socket"
+    task :make_dirs do
+        on roles(:app) do
+            execute "mkdir #{shared_path}/tmp/sockets -p"
+            execute "mkdir #{shared_path}/tmp/pids -p"
+        end
+    end
+
+    before :start, :make_dirs
+end
+
+namespace :deploy do
+    desc "Restart application"
+    task :restart do
+        on roles(:app), in: :sequence, wait: 5 do
+            invoke "puma:restart"
+        end
+    end
+
+    after :publishing, :restart
+end
